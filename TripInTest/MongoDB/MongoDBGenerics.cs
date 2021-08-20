@@ -11,6 +11,7 @@ namespace TripInTest.MongoDB
         private IMongoDatabase db;
         public MongoDBGenerics(string databaseName)
         {
+            var a = 1;
             MongoClient client = new MongoClient("mongodb+srv://vagglan:Trelos95@cluster0test.qyubx.mongodb.net/Cluster0Test?retryWrites=true&w=majority");
             db = client.GetDatabase("MyFirstTest");
         }
