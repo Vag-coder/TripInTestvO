@@ -24,7 +24,7 @@ namespace TripInTest.Controllers
 
         public WeatherForecastController(ILogger<WeatherForecastController> logger, IUserBusinessServiceAsync userBusinessService)
         {
-            _logger = logger;
+            _logger = logger;//dddddd
             _userBusinessService = userBusinessService;
         }
         [HttpGet]
