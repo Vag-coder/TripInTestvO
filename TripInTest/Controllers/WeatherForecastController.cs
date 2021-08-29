@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TripInTest.MongoDB;
+using TripIn.Core.Base.Services;
+using TripIn.Core.Interfaces;
+using TripIn.Core.Models;
 
 namespace TripInTest.Controllers
 {
@@ -12,6 +14,7 @@ namespace TripInTest.Controllers
     [Route("api/[controller]")]
     public class WeatherForecastController : ControllerBase
     {
+        private readonly IUserBusinessServiceAsync _userBusinessService;
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -19,9 +22,10 @@ namespace TripInTest.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IUserBusinessServiceAsync userBusinessService)
         {
             _logger = logger;
+            _userBusinessService = userBusinessService;
         }
         [HttpGet]
         [Route("Apalos")]
@@ -29,14 +33,31 @@ namespace TripInTest.Controllers
         {
             User user = new User
             {
-                FirstName = "aaa",
-                LastName = "sd",
-                State = "dsd",
-                City = "dsdsd",
-                PostCode = 32412
+                Id = Guid.Parse("d20559b0-f04c-4ab5-b3ca-4fd817b55c88"),
+                FirstName = "Oti Thelw",
+                LastName = "Manou",
+                State = "Argolis",
+                City = "Nafplio",
+                PostCode = 21100
             };
-            MongoDBGenerics db = new MongoDBGenerics("MyFirstTest");
-            db.InsertRecord<User>("Triparoume", user);
+
+            //ADD User
+            //_userBusinessService.InsertRecord<User>("Triparoume", user);
+
+            // Load All Users (Trparoume is collection with users)
+            // var users = _userBusinessService.LoadRecords("Triparoume");
+
+            // Retrieve a User from DB with Id
+            //var DbUser = _userBusinessService.LoadRecordById(Guid.Parse("d20559b0-f04c-4ab5-b3ca-4fd817b55c88"), "Triparoume");
+
+            //Add or Update User (If Id found in Collection => Update  Else => Insert)
+            //_userBusinessService.UpsertRecord<User>(Guid.Parse("d20559b0-f04c-4ab5-b3ca-4fd817b55c88"), user, "Triparoume");
+
+            //Delete a specific User from DB with Id
+            //_userBusinessService.DeleteRecord<User>(Guid.Parse("d20559b0-f04c-4ab5-b3ca-4fd817b55c88"), "Triparoume");
+
+            // Returns Users FullName
+            //var fullName =_userBusinessService.GetFullName(DbUser);
         }
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()

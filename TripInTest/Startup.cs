@@ -11,6 +11,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TipIn.BusinessService.Services;
+using TripIn.Core.Base.Services;
+using TripIn.Core.Interfaces;
+using TripIn.Core.Models;
 
 namespace TripInTest
 {
@@ -32,6 +36,8 @@ namespace TripInTest
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TripInTest", Version = "v1" });
             });
+            services.AddScoped<IUserBusinessServiceAsync, UserBusinessServiceAsync>();
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
